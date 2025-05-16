@@ -1,0 +1,175 @@
+/* ASCII Terminal Theme */
+body {
+    background-color: #000;
+    color: #0f0;
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.5;
+}
+
+.container {
+    border: 1px solid #0f0;
+    padding: 20px;
+    background-color: #111;
+    box-shadow: 0 0 10px #0f0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #000;
+    border: 1px solid #0f0;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #111;
+    border-bottom: 1px dashed #0f0;
+    padding: 10px;
+}
+
+h1, h2, h3, h4 {
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+    margin: 10px 0;
+}
+
+/* ASCII Tables */
+pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: 'Courier New', monospace;
+}
+
+.ascii-border {
+    border: 1px solid #0f0;
+    padding: 15px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.ascii-border::before {
+    content: "+----------------------------------------+";
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #000;
+    padding: 0 5px;
+    font-size: 12px;
+    color: #0f0;
+}
+
+/* Pagination Slider */
+.pagination-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin: 20px 0;
+}
+
+.slider-arrow {
+    background: #000;
+    color: #0f0;
+    border: 1px solid #0f0;
+    border-radius: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+}
+
+.slider-arrow:hover {
+    background: #0f0;
+    color: #000;
+}
+
+.slider-pages {
+    display: flex;
+    gap: 5px;
+}
+
+.slider-page {
+    background: #000;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+}
+
+.slider-page.active {
+    background: #0f0;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Prediction Cards */
+.prediction-card {
+    border: 1px dotted #0f0;
+    padding: 15px;
+    margin: 10px 0;
+    background: #111;
+}
+
+.prediction-score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+    color: #0f0;
+}
+
+.winner-prediction {
+    color: #ff0;
+    text-shadow: 0 0 5px #ff0;
+}
+
+/* Chart Styling */
+.chart-container {
+    border: 1px solid #0f0;
+    padding: 10px;
+    background: #000;
+}
+
+#accuracy-chart {
+    background: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .row {
+        flex-direction: column;
+    }
+    
+    .col-md-4, .col-md-8 {
+        width: 100%;
+    }
+    
+    pre {
+        font-size: 12px;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+    border: 1px solid #0f0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0f0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0f5;
+}

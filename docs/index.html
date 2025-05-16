@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Predictions 2025 | ASCII Terminal</title>
+        <link href="./css/style.css" rel="stylesheet">
+        <script>
+    const config = {
+        locateFile: filename => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${filename}`
+    };
+    </script>
+    <script>
+        async function testDbLoad() {
+            try {
+                const test = await fetch('assets/c_nba_2025.db.gz');
+                if (!test.ok) throw new Error(`HTTP ${test.status}`);
+                console.log("Database found! Size:", (await test.blob()).size);
+            } catch (e) {
+                console.error("Database test failed:", e);
+            }
+        }
+        testDbLoad();
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* ASCII Loading Animation */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Courier New', monospace;
+        }
+        #loading-text {
+            color: #0f0;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <pre style="color:#0f0;">
+  _   _ ____    _    
+ | \ | |  _ \  / \   
+ |  \| | | | |/ _ \  
+ | |\  | |_| / ___ \ 
+ |_| \_|____/_/   \_\
+        </pre>
+        <div id="loading-text">INITIALIZING DATABASE...</div>
+    </div>
+
+    <div class="container">
+        <div class="ascii-border">
+            <h1 class="text-center">NBA PREDICTIONS 2025</h1>
+            <div class="text-center">============================</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>GAME SCHEDULE</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="schedule-table"></div>
+                        <div class="pagination-controls"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>NEXT GAME PREDICTION</h3>
+                    </div>
+                    <div class="card-body" id="prediction-card"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3>PREDICTION ACCURACY</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="accuracy-chart"></canvas>
+            </div>
+        </div>
+
+        <div class="ascii-border">
+            <div class="text-center">
+                <pre style="color:#0f0;">
+[1] Refresh Data    [2] View Player Stats
+[3] Prediction Log  [Q] Quit
+                </pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/main.js" type="module"></script>
+    <script>
+        // Remove loading screen when page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
