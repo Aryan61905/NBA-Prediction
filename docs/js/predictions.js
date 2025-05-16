@@ -10,7 +10,6 @@ export function resetPredictions() {
     const initialData = {
         version: 1,
         predictions: [],
-        actualResults: [],
         lastUpdated: new Date().toISOString(),
         metadata: {
             description: "NBA Game Predictions",
@@ -48,7 +47,6 @@ export function predictGame(db, visitorTeam, homeTeam, gameId) {
     const visitorStats = getTeamMetrics(db, visitorTeam);
     const homeStats = getTeamMetrics(db, homeTeam);
     
-    // Enhanced prediction algorithm
     const homeAdvantage = 3.5;
     const visitorPts = Math.round(
         (visitorStats.offensiveRating * 0.6 + homeStats.defensiveRating * 0.4)
@@ -57,7 +55,6 @@ export function predictGame(db, visitorTeam, homeTeam, gameId) {
         (homeStats.offensiveRating * 0.6 + visitorStats.defensiveRating * 0.4) + homeAdvantage
     );
     
-    // Confidence calculation (50-95%)
     const ratingDiff = (homeStats.teamRating - visitorStats.teamRating);
     const confidence = Math.min(95, Math.max(50, 65 + ratingDiff));
     

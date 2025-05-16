@@ -1,5 +1,5 @@
 import { initPredictions, predictGame, savePrediction, loadPredictions } from './predictions.js';
-import { renderAccuracyChart } from './chart.js';
+
 
 let db;
 let currentPage = 1;
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         initPredictions();
         renderSchedule();
         renderUpcomingPrediction();
-        renderAccuracyChart();
+        
     } catch (error) {
         console.error("Initialization error:", error);
         document.getElementById('schedule-table').innerHTML = `
@@ -95,17 +95,6 @@ function renderGamesTable(data) {
         const row = document.createElement('pre');
         row.innerHTML = `| ${gameDate.padEnd(10)} | ${matchup.padEnd(24)} | ${score.padStart(9)} | ${status.padEnd(10)} |`;
         container.appendChild(row);
-        
-        if (visitorPts !== null) {
-            saveActualResult({
-                gameId: `game-${rowid}`,
-                date,
-                visitor,
-                home,
-                visitorPts,
-                homePts
-            });
-        }
     });
     
     // Table Footer
