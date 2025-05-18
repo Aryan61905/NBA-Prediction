@@ -2,9 +2,8 @@ name: Update NBA Database
 
 on:
   schedule:
-    # Runs daily at 3 AM UTC (adjust as needed)
-    - cron: '0 3 * * *'
-  workflow_dispatch:  # Allows manual triggering
+    - cron: '0 3 * * *'  # Daily at 3 AM UTC
+  workflow_dispatch:
 
 jobs:
   update-database:
@@ -14,18 +13,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        # Required to push changes back
-        fetch-depth: 0  # Get all history for all branches
+        fetch-depth: 0
     
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'  # Use your preferred version
+        python-version: '3.11'
         
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install beautifulsoup4 requests tqdm sqlite3
+        pip install beautifulsoup4 requests tqdm
         
     - name: Run database update
       run: |
