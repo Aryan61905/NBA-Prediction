@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA Predictions 2025 | ASCII Terminal</title>
-        <link href="./css/style.css" rel="stylesheet">
-        <script>
+    <link href="./css/style.css" rel="stylesheet">
+    <script>
     const config = {
         locateFile: filename => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${filename}`
     };
@@ -21,9 +21,8 @@
             }
         }
         testDbLoad();
-        </script>
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -66,32 +65,88 @@
             <h1 class="text-center">NBA PREDICTIONS 2025</h1>
             <div class="text-center">============================</div>
         </div>
+
+        <div class="command-panel">
+            <div class="ascii-border">
+                <h3>QUERY COMMANDS</h3>
+                <pre>
+        Format: -t &lt;Table&gt; -c &lt;Column1&gt; &lt;Column2&gt; ... -f (&lt;Where1&gt; | &lt;Where2&gt;) &amp; &lt;Where3&gt;
+        -t : Table name
+        -c : Columns to select
+        -f : Filter conditions ("|" = OR, "&" = AND)
+                </pre>
+                <div class="command-input">
+                    <input type="text" id="command-input" placeholder="Enter your query command...">
+                    <button onclick="executeCommand()">EXECUTE</button>
+                </div>
+                <div id="command-result"></div>
+            </div>
+        </div>
         
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>GAME SCHEDULE</h3>
-                    </div>
-                    <div class="card-body">
-                        <div id="schedule-table"></div>
-                        <div class="pagination-controls"></div>
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <button class="tab-button active" onclick="openTab('schedule')">SCHEDULE</button>
+            <button class="tab-button" onclick="openTab('players')">PLAYER STATS</button>
+            <button class="tab-button" onclick="openTab('teams')">TEAM STATS</button>
+        
+        </div>
+
+        <!-- Tab Contents -->
+        <div id="schedule" class="tab-content" style="display:block;">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>GAME SCHEDULE</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="schedule-table"></div>
+                            <div class="pagination-controls"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>NEXT GAME PREDICTION</h3>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>NEXT GAME PREDICTION</h3>
+                        </div>
+                        <div class="card-body" id="prediction-card"></div>
                     </div>
-                    <div class="card-body" id="prediction-card"></div>
                 </div>
             </div>
         </div>
         
+        <div id="players" class="tab-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>PLAYER STATISTICS</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="players-table"></div>
+                            <div class="pagination-controls players-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-
+        <div id="teams" class="tab-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>TEAM STATISTICS</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="teams-table"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         
     </div>
 

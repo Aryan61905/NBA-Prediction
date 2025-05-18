@@ -44,29 +44,45 @@ export function loadPredictions() {
 }
 
 export function predictGame(db, visitorTeam, homeTeam, gameId) {
-    const visitorStats = getTeamMetrics(db, visitorTeam);
-    const homeStats = getTeamMetrics(db, homeTeam);
-    
-    const homeAdvantage = 3.5;
-    const visitorPts = Math.round(
-        (visitorStats.offensiveRating * 0.6 + homeStats.defensiveRating * 0.4)
-    );
-    const homePts = Math.round(
-        (homeStats.offensiveRating * 0.6 + visitorStats.defensiveRating * 0.4) + homeAdvantage
-    );
-    
-    const ratingDiff = (homeStats.teamRating - visitorStats.teamRating);
-    const confidence = Math.min(95, Math.max(50, 65 + ratingDiff));
-    
-    return {
-        gameId,
-        visitorTeam,
-        homeTeam,
-        visitorPts,
-        homePts,
-        confidence: Math.round(confidence),
-        predictedOn: new Date().toISOString()
-    };
+    try {
+        // First verify the game hasn't been played yet
+        const rowid = gameId.split('-')[1];
+        const gameStatus = db.exec(`
+            SELECT Home_PTS FROM Schedule WHERE rowid = ${rowid}
+        `)[0];
+        
+        if (gameStatus.values[0][0] !== null) {
+            throw new Error('Cannot predict already completed game');
+        }
+
+        const visitorStats = getTeamMetrics(db, visitorTeam);
+        const homeStats = getTeamMetrics(db, homeTeam);
+        
+        const homeAdvantage = 3.5;
+        const visitorPts = Math.round(
+            (visitorStats.offensiveRating * 0.6 + homeStats.defensiveRating * 0.4)
+        );
+        const homePts = Math.round(
+            (homeStats.offensiveRating * 0.6 + visitorStats.defensiveRating * 0.4) + homeAdvantage
+        );
+        
+        const ratingDiff = (homeStats.teamRating - visitorStats.teamRating);
+        const confidence = Math.min(95, Math.max(50, 65 + ratingDiff));
+        
+        return {
+            gameId,
+            visitorTeam,
+            homeTeam,
+            visitorPts,
+            homePts,
+            confidence: Math.round(confidence),
+            predictedOn: new Date().toISOString(),
+            gameDate: new Date().toISOString() // Store when prediction was made
+        };
+    } catch (error) {
+        console.error("Prediction failed:", error);
+        throw error;
+    }
 }
 
 function getTeamMetrics(db, team) {
