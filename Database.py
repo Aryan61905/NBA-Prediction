@@ -8,14 +8,14 @@ from BoxScoreFetch import BoxScoreFetch
 from tqdm import tqdm
 import time
 
-def decompress_database(input_path='NBA-Prediction/docs/assets/c_nba_2025.db.gz', output_path='c_nba_2025.db'):
+def decompress_database(input_path='docs/assets/c_nba_2025.db.gz', output_path='c_nba_2025.db'):
     """Decompress the gzipped database file"""
     with gzip.open(input_path, 'rb') as f_in:
         with open(output_path, 'wb') as f_out:
             f_out.write(f_in.read())
     return output_path
 
-def compress_database(input_path='c_nba_2025.db', output_path='NBA-Prediction/docs/assets/c_nba_2025.db.gz'):
+def compress_database(input_path='c_nba_2025.db', output_path='docs/assets/c_nba_2025.db.gz'):
     """Compress the database file back to gzip"""
     with open(input_path, 'rb') as f_in:
         with gzip.open(output_path, 'wb') as f_out:

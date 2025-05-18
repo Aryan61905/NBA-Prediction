@@ -27,7 +27,6 @@ jobs:
         
     - name: Run database update
       run: |
-        cd NBA-Prediction
         python Database.py
         
     - name: Commit and push changes
