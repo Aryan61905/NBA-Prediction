@@ -63,16 +63,18 @@ def create_database(db_name='c_nba_2025.db'):
         
     )
     ''')
-    
     cursor.execute('''
-    CREATE TABLE IF NOT EXISTS Schedule (
+    DROP TABLE Schedule
+    ''')
+    cursor.execute('''
+    CREATE TABLE Schedule (
         Date TEXT,
         Start_Time TEXT,
         Visitor TEXT,
         Visitor_PTS INTEGER,
         Home TEXT,
         Home_PTS INTEGER,
-        BoxScore TEXT UNIQUE,
+        BoxScore TEXT ,
         Notes TEXT,
         Attendance INTEGER,
         LengthOfGame Text,
@@ -233,7 +235,7 @@ def update_schedule_data(cursor, data):
             try:
                 # Update or insert schedule record
                 cursor.execute('''
-                INSERT OR REPLACE INTO Schedule 
+                INSERT INTO Schedule 
                 (Date, Start_Time, Visitor, Visitor_PTS, Home, Home_PTS, BoxScore, Notes, Attendance, LengthOfGame, Arena)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
                 ''', processed_row)
